@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
+import  CreatePerson from './CreatePerson';
+
+const peopleQuery = gql`
+  query PeopleQuery {
+    people {
+      id
+      name
+    }
+  }
+`;
+
 
 class App extends Component {
   render() {
@@ -31,16 +42,12 @@ class App extends Component {
             ))}
           </ul>
         )}
+        <CreatePerson />
       </main>
     );
   }
 }
 
-export default graphql(
-  gql`{
-    people {
-      id
-      name
-    }
-  }`,
-)(App)
+const AppWithData = graphql(peopleQuery)(App);
+
+export { AppWithData as App, peopleQuery };
